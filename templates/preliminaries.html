@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Guidelines - Poem Survey{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        
+        <div class="text-center mb-5">
+            <h1 class="fw-bold display-5 hover-title">Survey Guidelines</h1>
+            {% if session.user_email %}
+            <div class="alert alert-info border-0 rounded-pill d-inline-block px-4 py-2 mt-3 mb-3">
+                <i class="bi bi-person-circle me-2"></i>
+                <strong>Welcome, {{ session.user_email }}!</strong> We're excited to have you participate in our poetry survey.
+            </div>
+            {% endif %}
+            <p class="lead text-muted">Please review the 5 criteria below before evaluating the poems.</p>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 mb-4 hover-card">
+            <div class="card-body p-4">
+                <h3 class="card-title text-primary fw-bold mb-3">1. Clarity</h3>
+                <p class="card-text">
+                    Clarity indicates whether the language aligns with the mood and tone of the poem. 
+                    Generally, higher clarity is indicative of a higher quality poem.
+                </p>
+            </div>
+        </div>
+
+<div class="card shadow-sm border-0 rounded-4 mb-4 hover-card">
+            <div class="card-body p-4">
+                <h3 class="card-title text-primary fw-bold mb-3">2. Literary Devices</h3>
+                <p class="mb-4">
+                    These are techniques poets use to add depth, meaning, and style beyond the literal meaning.
+                </p>
+                
+                <div class="row g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?q=definitions+of+metaphor&oq=definitions+&gs_lcrp=EgZjaHJvbWUqDAgCECMYJxiABBiKBTIHCAAQABiPAjIMCAEQABhDGIAEGIoFMgwIAhAjGCcYgAQYigUyBwgDEAAYgAQyBwgEEAAYgAQyBwgFEAAYgAQyDQgGEAAYkQIYgAQYigUyDQgHEAAYkQIYgAQYigUyBwgIEAAYgAQyDQgJEAAYkQIYgAQYigXSAQg4MjU5ajBqN6gCALACAA&sourceid=chrome&ie=UTF-8" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Metaphor</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Comparison between unlike things (no "like"/"as") to highlight a shared quality.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Simile&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQINRAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Simile</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Comparison using "like" or "as" (e.g., "brave as a lion").</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Alliteration&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQIfxAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Alliteration</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Repetition of the same consonant sound at the start of words.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Imagery&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegUIgAEQAQ&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Imagery</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Language appealing to senses to create vivid pictures.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Personification&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQIdxAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Personification</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Giving human qualities to inanimate objects.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Foreshadowing&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQIeBAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Foreshadowing</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Hinting at future events to create suspense.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Allusion&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQIdhAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Allusion</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Indirect reference to a person, place, event, or art.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Symbolism&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQIdRAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Symbolism</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Using an object/idea to represent a deeper meaning.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-lg-4">
+                        <div class="p-3 bg-light rounded-3 h-100 position-relative device-box">
+                            <a href="https://www.google.com/search?sca_esv=8ab2282fee241d3c&sxsrf=AE3TifNvk0uy7gzq1Lygvam2wA2HOoYtqg%3A1765431492046&q=Juxtaposition&sa=X&ved=2ahUKEwiOwdXn6LSRAxX5XmwGHSizDNkQxccNegQIdBAB&mstk=AUtExfBkIoqex17uWPpwISi1BcHVMutH26JCy2fViVI25nIhFUn-bm0vwQFVt0fQpRSSjpjMR-ekMU4fjdAfp_LDt_C00uU8670yzrMFWpWFVWCKfVwo3h7gMREWsubsdh_xOJKhRYw-8LeWQ2-FZZusqVvPo1tHGP-wDaLV8BWy3NiV6DMFgxrbeGxjzPCDSNW1r3hjxz428IbggPxOM7F1NGIpoC-L5q6sMe11PyJyf0RJBDiTnhji6JbV8gyqimowuUtRMnPMY_XkRX0xHKji8Lfb&csui=3" target="_blank" class="device-link text-decoration-none text-primary d-block mb-1">
+                                <strong>Juxtaposition</strong> <i class="bi bi-box-arrow-up-right text-primary ms-1 opacity-50"></i>
+                            </a>
+                            <span class="text-muted small">Placing two contrasting things side-by-side.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 mb-4 hover-card">
+            <div class="card-body p-4">
+                <h3 class="card-title text-primary fw-bold mb-3">3. Punctuation & Spacing</h3>
+                <p class="card-text">
+                    These are indicative of structure. A quality poem usually maintains a uniform structure.
+                <!-- <i class="bi bi-info-circle-fill text-primary me-2"></i> -->
+                <p>
+                <strong>Note:</strong> Poems can be unstructured if intended, but the message must remain clear despite the structure.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 mb-4 hover-card">
+            <div class="card-body p-4">
+                <h3 class="card-title text-primary fw-bold mb-3">4. Grammar & Spelling</h3>
+                <p class="card-text">
+                    The usage of grammar and spelling must be accurate throughout the work.
+                </p>
+            </div>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 mb-5 hover-card">
+            <div class="card-body p-4">
+                <h3 class="card-title text-primary fw-bold mb-3">5. Originality</h3>
+                <p>
+                    Themes must be original and not rehashed from pop culture, clichés, or other prominent works.
+                </p>
+                <p>
+                    Additionally, the mood must remain constant throughout the poem unless a shift is clearly intended by the poet.
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mb-5">
+            <a href="{{ url_for('survey_start') }}" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold btn-grow shadow">
+                I Understand - Start Judging <i class="bi bi-arrow-right-short"></i>
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

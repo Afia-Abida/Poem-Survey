@@ -1,0 +1,84 @@
+/* static/style.css */
+
+/* --- GLOBAL TRANSITIONS --- */
+/* Apply smooth animation to anything that moves or changes color */
+.card, .form-control, .btn, h1::after {
+    /* A nice bouncy transition curve for a modern feel */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
+/* --- THE MAIN CARD POP --- */
+/* When the user hovers over the main card container */
+.hover-card:hover {
+    /* Move the card up 10 pixels */
+    transform: translateY(-10px);
+    /* Make the shadow much deeper and softer to create depth */
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+    border-color: rgba(13, 110, 253, 0.3); /* Subtle blue border tint */
+}
+
+
+/* --- THE TITLE UNDERLINE EFFECT --- */
+h1.hover-title {
+    position: relative;
+    display: inline-block;
+}
+/* Create an invisible line below the text */
+h1.hover-title::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0); /* Start hidden (width 0) */
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(90deg, #0d6efd, #6610f2); /* Modern gradient */
+    transform-origin: bottom right; /* Animate from right to left on exit */
+}
+/* When hovering the CARD, trigger the title underline */
+.hover-card:hover h1.hover-title::after {
+    transform: scaleX(1); /* Grow to full width */
+    transform-origin: bottom left; /* Animate from left to right on enter */
+}
+
+
+/* --- THE INPUT FIELD ACTIVE STATE --- */
+/* We apply the "focus" style (the blue glow) on hover as well */
+.form-control:hover {
+    border-color: #86b7fe; /* Bootstrap's lighter blue */
+    /* A subtle glow effect */
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    /* A very slight grow to acknowledge the mouse */
+    transform: scale(1.01);
+}
+
+
+/* --- THE BUTTON GROW --- */
+.btn-grow:hover {
+    /* Make the button 5% larger and lift it slightly */
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.3);
+}
+
+
+/* --- DEVICE LINK HOVER UNDERLINE --- */
+.device-link,
+.device-link {
+    transition: transform 0.001s ease, font-weight 0.001s ease, text-decoration-color 0.001s ease;
+}
+
+.device-link {
+    font-weight: 600;
+}
+
+.device-link:hover {
+    transform: translateY(-2px);
+    text-decoration: underline !important;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+.device-link:hover strong {
+    font-weight: 800;
+}

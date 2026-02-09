@@ -1,0 +1,196 @@
+{% extends "base.html" %}
+
+{% block title %}Survey - Poem {{ current_index }} of {{ total_poems }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-md-5 pb-5" style="max-width: 1600px;">
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="fw-bold text-muted">Progress</span>
+                <span class="badge bg-primary rounded-pill">Poem {{ current_index }} / {{ total_poems }}</span>
+            </div>
+            <div class="progress" style="height: 10px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: {{ (current_index / total_poems) * 100 }}%;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card shadow border-0 rounded-4 sticky-top" style="top: 20px; z-index: 1;">
+                <div class="card-body p-4 p-md-5">
+                    <h5 class="text-uppercase text-muted small fw-bold mb-3">Poem Content</h5>
+                    <h2 class="card-title fw-bold mb-4 gradient-text">Poem {{ current_index }}</h2>
+                    <!-- <h2 class="card-title fw-bold mb-4 gradient-text">{{ poem.title }}</h2> -->
+
+                    <div class="card-text lead" style="white-space: pre-wrap; overflow-x: auto; font-family: 'Georgia', serif; line-height: 1.8;">
+{{ poem.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 ps-lg-5">
+            <div class="mb-4">
+                <h2 class="fw-bold">Evaluation</h2>
+                <p class="text-muted">Rate this poem based on the 5 criteria.</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('survey_route', page_num=current_index) }}">
+                
+                {% macro render_likert(name, label, description, existing_value) %}
+                <div class="card shadow-sm border-0 rounded-4 mb-4 hover-card">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-primary">{{ label }}</h5>
+                        <p class="small text-muted mb-3">{{ description }}</p>
+                        
+                        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-3">
+                            {% for option in ['Very Unlikely', 'Unlikely', 'Not Sure', 'Likely', 'Very Likely'] %}
+                            <label class="likert-button text-center w-100 p-2 border rounded-3 transition-bg {% if existing_value == option %}likert-selected{% endif %}" for="{{ name }}_{{ loop.index }}">
+                                <input class="visually-hidden-input" type="radio" 
+                                       name="{{ name }}" 
+                                       id="{{ name }}_{{ loop.index }}" 
+                                       value="{{ option }}" 
+                                       required
+                                       {% if existing_value == option %}checked{% endif %}>
+                                <span class="small fw-bold d-block">{{ option }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endmacro %}
+
+                {{ render_likert('clarity', '1. Clarity', 'Based on clarity, how likely is the poem AI-generated?', draft.clarity) }}
+
+                {{ render_likert('devices', '2. Literary Devices', 'Based on the usage of literary devices, how likely is the poem AI-generated?', draft.devices) }}
+
+                {{ render_likert('punctuation', '3. Punctuation & Spacing', 'Based on punctuation and spacing, how likely is the poem AI-generated?', draft.punctuation) }}
+
+                {{ render_likert('grammar', '4. Grammar & Spelling', 'Based on proper grammar and spelling, how likely is the poem AI-generated?', draft.grammar) }}
+
+                {{ render_likert('originality', '5. Originality', 'Based on originality, how likely is the poem AI-generated?', draft.originality) }}
+
+                <div class="card shadow-sm border-0 rounded-4 mb-5 hover-card">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold text-primary">6. Comments (Optional)</h5>
+                        <p class="small text-muted mb-3">Any specific feedback for this poem?</p>
+                        <textarea class="form-control bg-light border-0" name="extra" rows="4" placeholder="Type your thoughts here...">{{ draft.extra or '' }}</textarea>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center pt-3 pb-5">
+                    
+                    {% if current_index == 1 %}
+                        <a href="{{ url_for('preliminaries') }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
+                            <i class="bi bi-arrow-left"></i> Back to Guidelines
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('survey_route', page_num=current_index - 1) }}" class="btn btn-outline-secondary px-4 py-2 rounded-pill">
+                            <i class="bi bi-arrow-left"></i> Previous
+                        </a>
+                    {% endif %}
+
+                    {% if current_index < total_poems %}
+                        <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill fw-bold btn-grow shadow">
+                            Next Poem <i class="bi bi-arrow-right"></i>
+                        </button>
+                    {% else %}
+                        <button type="submit" class="btn btn-success px-4 py-2 rounded-pill fw-bold btn-grow shadow">
+                            Submit Survey <i class="bi bi-check-lg"></i>
+                        </button>
+                    {% endif %}
+                    
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Likert button styling - whole box is clickable */
+.likert-button {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.likert-button:hover {
+    background-color: #f8f9fa; /* Light gray on hover */
+    border-color: #0d6efd !important; /* Blue border on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.2);
+}
+
+.likert-button.likert-selected {
+    background-color: #e7f1ff; /* Light blue background when selected */
+    border-color: #0d6efd !important; /* Blue border when selected */
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+.likert-button input[type="radio"]:checked ~ span {
+    color: #0d6efd;
+}
+
+/* Hide radio but keep it 'visible' and 'sizeable' for browser tooltips */
+.visually-hidden-input {
+    position: absolute;
+    /* Move it to the top-middle of the card so the bubble appears centered */
+    top: 0;
+    left: 50%;
+    opacity: 0;
+    /* Give it a tiny size so the tooltip has an anchor point */
+    width: 1px;
+    height: 1px;
+    /* REMOVED pointer-events: none; to allow browser focus/tooltips */
+}
+
+/* Highlights the card when the browser's validation logic "points" to the missed radio button */
+.likert-button:has(input:invalid:focus) {
+    border-color: #0d6efd !important;
+    background-color: #f0f7ff;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Ensure the sticky poem doesn't overlap footer on small screens */
+@media (max-width: 991px) {
+    .sticky-top { position: static !important; }
+}
+</style>
+
+<script>
+// Handle visual selection state for Likert buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const likertButtons = document.querySelectorAll('.likert-button');
+    
+    likertButtons.forEach(function(button) {
+        const radio = button.querySelector('input[type="radio"]');
+        
+        // Update visual state when radio is checked
+        radio.addEventListener('change', function() {
+            // Remove selected class from all buttons in the same group
+            const groupName = radio.name;
+            document.querySelectorAll(`input[name="${groupName}"]`).forEach(function(r) {
+                r.closest('.likert-button').classList.remove('likert-selected');
+            });
+            
+            // Add selected class to clicked button
+            if (radio.checked) {
+                button.classList.add('likert-selected');
+            }
+        });
+        
+        // Initialize: add selected class if radio is already checked
+        if (radio.checked) {
+            button.classList.add('likert-selected');
+        }
+    });
+});
+</script>
+{% endblock %}

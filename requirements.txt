@@ -1,0 +1,7 @@
+Flask
+SQLAlchemy
+Flask-SQLAlchemy
+PyMySQL
+python-dotenv
+email-validator
+cryptography
