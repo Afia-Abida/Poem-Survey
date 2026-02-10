@@ -1,36 +1,39 @@
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy.pool import NullPool  # <--- Import this
+from sqlalchemy.pool import NullPool
 
-# Base class for models
 Base = declarative_base()
 
-def get_engine():
-    DATABASE_URL = os.getenv("DATABASE_URL")
+# 1. Create the engine ONCE at the module level
+# This helps Vercel reuse the engine object across warm starts
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-    if not DATABASE_URL:
-        raise RuntimeError("DATABASE_URL is not set")
+if not DATABASE_URL:
+    # This will show up in Vercel logs if the Env Var is missing
+    raise RuntimeError("DATABASE_URL is not set in Environment Variables")
 
-    # For Vercel/Serverless, we MUST use NullPool to avoid "Device Busy" errors
-    return create_engine(
-        DATABASE_URL,
-        poolclass=NullPool, # <--- This is the fix
-        pool_pre_ping=True
-    )
+# Make sure your URL starts with mysql+pymysql://
+engine = create_engine(
+    DATABASE_URL,
+    poolclass=NullPool,
+    # This timeout helps prevent the "busy" error by giving up 
+    # and retrying rather than locking the socket
+    connect_args={"connect_timeout": 10}
+)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
 
 def get_db():
-    engine = get_engine()
-    SessionLocal = sessionmaker(
-        autocommit=False,
-        autoflush=False,
-        bind=engine
-    )
-
     db = SessionLocal()
     try:
         yield db
+    except Exception as e:
+        print(f"Database error: {e}")
+        raise
     finally:
         db.close()
-        # Explicitly dispose the engine to clean up the connection immediately
-        engine.dispose()

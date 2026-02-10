@@ -1,7 +1,7 @@
 Flask
 SQLAlchemy
 Flask-SQLAlchemy
-PyMySQL
+PyMySQL[rsa]
 python-dotenv
 email-validator
 cryptography
