@@ -14,3 +14,5 @@ venv.bak/
 
 # VS Code settings (optional but recommended)
 .vscode/
+.vercel
+.env*.local
