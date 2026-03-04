@@ -66,26 +66,19 @@ def survey_start():
             return redirect(url_for("thank_you"))
 
         else:
-            # --- NEW ASSIGNMENT LOGIC ---
-            
-            # A. Try to find an available GOLD slot (usage < 2)
-            # We explicitly prioritize Gold slots for the first 14 users
-            assigned_slot = db.query(SurveySlot).filter(
-                SurveySlot.is_gold == 1, 
-                SurveySlot.usage_count < 2
-            ).first()
+            # --- NEW ASSIGNMENT LOGIC (no gold priority) ---
+            # 1. Consider ALL slots.
+            # 2. Prefer slots with odd usage_count; if multiple, pick one randomly.
+            # 3. If none have odd usage_count, pick any slot randomly.
+            all_slots = db.query(SurveySlot).all()
 
-            # B. If no Gold available, find a Regular slot (usage < 2) - RANDOMLY
-            # After user 14, regular slots are assigned randomly, not sequentially
-            # Slots with usage_count = 0 and usage_count = 1 are both available randomly
-            if not assigned_slot:
-                available_regular_slots = db.query(SurveySlot).filter(
-                    SurveySlot.is_gold == 0
-                ).all()
-                
-                if available_regular_slots:
-                    # Randomly select from available regular slots (both usage_count = 0 and 1)
-                    assigned_slot = random.choice(available_regular_slots)
+            if all_slots:
+                odd_usage_slots = [slot for slot in all_slots if slot.usage_count % 2 == 1]
+
+                if odd_usage_slots:
+                    assigned_slot = random.choice(odd_usage_slots)
+                else:
+                    assigned_slot = random.choice(all_slots)
 
             # # C. Fallback: If ALL slots are full (e.g., user #55), randomly pick from least used ones
             # if not assigned_slot:
